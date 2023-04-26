@@ -66,7 +66,7 @@ if __name__ == "__main__":
     #   num_classes     训练自己的数据集必须要修改的
     #                   自己需要的分类个数+1，如2+1
     #-----------------------------------------------------#
-    num_classes = 10
+    num_classes = 2
     #-----------------------------------------------------#
     #   主干网络选择
     #   vgg
@@ -345,7 +345,7 @@ if __name__ == "__main__":
     #---------------------------#
     with open(os.path.join(VOCdevkit_path, "save/train.txt"),"r") as f:
         train_lines = f.readlines()
-    with open(os.path.join(VOCdevkit_path, "save/trainval.txt"),"r") as f:
+    with open(os.path.join(VOCdevkit_path, "save/val.txt"),"r") as f:
         val_lines = f.readlines()
     num_train   = len(train_lines)
     num_val     = len(val_lines)

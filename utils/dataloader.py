@@ -30,7 +30,7 @@ class UnetDataset(Dataset):
         #   从文件中读取图像
         #-------------------------------#
         jpg         = Image.open(os.path.join(os.path.join(self.dataset_path, "train/image"), name + ".jpg"))
-        png         = Image.open(os.path.join(os.path.join(self.dataset_path, "train/label/EX"), name + ".tif"))
+        png         = Image.open(os.path.join(os.path.join(self.dataset_path, "train/label/EX_01"), name + ".png"))
         #-------------------------------#
         #   数据增强
         #-------------------------------#

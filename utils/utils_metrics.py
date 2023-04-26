@@ -135,8 +135,9 @@ def adjust_axes(r, t, fig, axes):
 def draw_plot_func(values, name_classes, plot_title, x_label, output_path, tick_font_size = 12, plt_show = True):
     fig     = plt.gcf() 
     axes    = plt.gca()
+    print(values)
     plt.barh(range(len(values)), values, color='royalblue')
-    plt.title(plot_title, fontsize=tick_font_size + 2)
+    plt.title("All data", fontsize=tick_font_size + 2)
     plt.xlabel(x_label, fontsize=tick_font_size)
     plt.yticks(range(len(values)), name_classes, fontsize=tick_font_size)
     r = fig.canvas.get_renderer()
@@ -155,19 +156,27 @@ def draw_plot_func(values, name_classes, plot_title, x_label, output_path, tick_
     plt.close()
 
 def show_results(miou_out_path, hist, IoUs, PA_Recall, Precision, name_classes, tick_font_size = 12):
-    draw_plot_func(IoUs, name_classes, "mIoU = {0:.2f}%".format(np.nanmean(IoUs)*100), "Intersection over Union", \
+    print(IoUs)
+    classes=['IoUs','PA_Recall','Precision']
+    value=[]
+    value.append(IoUs[1])
+    value.append(PA_Recall[1])
+    value.append(Precision[1])
+    draw_plot_func(value, classes, "mIoU = {0:.3f}%".format(np.nanmean(IoUs)*100), "Intersection over Union", \
+        os.path.join(miou_out_path, "All.png"), tick_font_size = tick_font_size, plt_show = True)
+    draw_plot_func(IoUs, name_classes, "mIoU = {0:.3f}%".format(np.nanmean(IoUs)*100), "Intersection over Union", \
         os.path.join(miou_out_path, "mIoU.png"), tick_font_size = tick_font_size, plt_show = True)
     print("Save mIoU out to " + os.path.join(miou_out_path, "mIoU.png"))
 
-    draw_plot_func(PA_Recall, name_classes, "mPA = {0:.2f}%".format(np.nanmean(PA_Recall)*100), "Pixel Accuracy", \
+    draw_plot_func(PA_Recall, name_classes, "mPA = {0:.3f}%".format(np.nanmean(PA_Recall)*100.0), "Pixel Accuracy", \
         os.path.join(miou_out_path, "mPA.png"), tick_font_size = tick_font_size, plt_show = False)
     print("Save mPA out to " + os.path.join(miou_out_path, "mPA.png"))
     
-    draw_plot_func(PA_Recall, name_classes, "mRecall = {0:.2f}%".format(np.nanmean(PA_Recall)*100), "Recall", \
+    draw_plot_func(PA_Recall, name_classes, "mRecall = {0:.3f}%".format(np.nanmean(PA_Recall)*100.0), "Recall", \
         os.path.join(miou_out_path, "Recall.png"), tick_font_size = tick_font_size, plt_show = False)
     print("Save Recall out to " + os.path.join(miou_out_path, "Recall.png"))
 
-    draw_plot_func(Precision, name_classes, "mPrecision = {0:.2f}%".format(np.nanmean(Precision)*100), "Precision", \
+    draw_plot_func(Precision, name_classes, "mPrecision = {0:.3f}%".format(np.nanmean(Precision)*100.0), "Precision", \
         os.path.join(miou_out_path, "Precision.png"), tick_font_size = tick_font_size, plt_show = False)
     print("Save Precision out to " + os.path.join(miou_out_path, "Precision.png"))
 

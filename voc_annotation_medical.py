@@ -15,7 +15,7 @@ VOCdevkit_path  = 'Nankai'
 if __name__ == "__main__":
     random.seed(0)
     print("Generate txt in ImageSets.")
-    segfilepath     = os.path.join(VOCdevkit_path, 'train/image')
+    segfilepath     = os.path.join(VOCdevkit_path, 'train/label/EX')
     saveBasePath    = os.path.join(VOCdevkit_path, 'save')
     
     temp_seg = os.listdir(segfilepath)

@@ -42,9 +42,6 @@ class UnetDataset(Dataset):
         #   这里的标签处理方式和普通voc的处理方式不同
         #   将小于127.5的像素点设置为目标像素点。
         #-------------------------------------------------------#
-        for i in range(512):
-            for j in range(512):
-                print(png[i][j])
         modify_png  = np.zeros_like(png)
         modify_png[png==0] = 1
         seg_labels  = modify_png

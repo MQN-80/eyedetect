@@ -46,11 +46,31 @@ def hw(strJpgFile, strSaveDir, width=512, height=512):
     img_src = Image.open(strJpgFile)
     img_dst = img_src.resize((width, height), Image.LANCZOS) # 得到的图像在抗锯齿和保留锐利边缘的效果较好
     img_dst.save(os.path.join(strSaveDir, os.path.basename(strJpgFile)))
+def mergeData(ex_data,ha_data,se_data,ma_data,pic_name,save_path):
+    ex=np.array(Image.open(ex_data+pic_name))
+    ha=np.array(Image.open(ha_data+pic_name))
+    se=np.array(Image.open(se_data+pic_name))
+    ma=np.array(Image.open(ma_data+pic_name))
+    ex=ex+ha*2+se*3+ma*4
+    ex=Image.fromarray(ex)
+    ex.save(save_path+pic_name)
+    
+def merge():
+    ex_path="E:\\setup\\UNet_Demo\\eyedetect\\NanKai\\train\\label\\EX_01\\"
+    ha_path="E:\\setup\\UNet_Demo\\eyedetect\\NanKai\\train\\label\\HE_01\\"
+    se_path="E:\\setup\\UNet_Demo\\eyedetect\\NanKai\\train\\label\\SE_01\\"
+    ma_path="E:\\setup\\UNet_Demo\\eyedetect\\NanKai\\train\\label\\MA_01\\"
+    save_path="E:\\setup\\UNet_Demo\\eyedetect\\NanKai\\train\\label\\num_label\\"
+    image_files=os.listdir(ex_path)
+    for item in image_files:
+        mergeData(ex_path,ha_path,se_path,ma_path,item,save_path)
+
     
 if __name__ == '__main__':
-    root_path = r'E:/setup/UNet_Demo/UNet_Demo/NanKai/train/new_image1/'
-    save_path = r'E:/setup/UNet_Demo/UNet_Demo/NanKai/train/new_image2'
+    root_path = r'E:/setup/UNet_Demo/eyedetect/NanKai/train/label/SE/'
+    save_path = r'E:/setup/UNet_Demo/eyedetect/NanKai/train/label/SE_new'
     image_files = os.listdir(root_path)
-    for item in image_files:
-        tif_to_png(root_path+item,save_path)
+    merge()
+    #for item in image_files:
+    #    tif_to_png(root_path+item,save_path)
     #gray()
