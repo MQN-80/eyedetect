@@ -28,7 +28,9 @@ def resize_image(image, size):
     new_image.paste(image, ((w-nw)//2, (h-nh)//2))
 
     return new_image, nw, nh
-    
+def resize_image1(image, size):
+    iw, ih  = image.size
+    return image, iw, ih
 #---------------------------------------------------#
 #   获得学习率
 #---------------------------------------------------#
