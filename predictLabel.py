@@ -10,7 +10,7 @@ from PIL import Image
 
 from unet import Unet
 
-if __name__ == "__main__":
+def predict(file_name):
     #-------------------------------------------------------------------------#
     #   如果想要修改对应种类的颜色，到__init__函数里修改self.colors即可
     #-------------------------------------------------------------------------#
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     count           = False
     # name_classes    = ["background","aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
     #name_classes = ["_background_", "person", "car", "motorbike", "dustbin", "chair", "fire_hydrant", "tricycle", "bicycle","stone"]
-    name_classes    = ["background","cat"]
+    name_classes    = ["background","EX", "HE", "MA", "SE"]
     #----------------------------------------------------------------------------------------------------------#
     #   video_path          用于指定视频的路径，当video_path=0时表示检测摄像头
     #                       想要检测视频，则设置如video_path = "xxx.mp4"即可，代表读取出根目录下的xxx.mp4文件。
@@ -86,16 +86,14 @@ if __name__ == "__main__":
             seg_img[:, :, 1] += ((pr == c)*( self.colors[c][1] )).astype('uint8')
             seg_img[:, :, 2] += ((pr == c)*( self.colors[c][2] )).astype('uint8')
         '''
-        while True:
-            img = input('Input image filename:')
-            try:
-                image = Image.open(img)
-            except:
-                print('Open Error! Try again!')
-                continue
-            else:
-                r_image = unet.detect_image(image, count=count, name_classes=name_classes)
-                r_image.save('backend/static/label')
+        img = 'static/result/'+file_name
+        try:
+            image = Image.open(img)
+        except:
+            print('Open Error! Try again!')
+        else:
+            r_image = unet.detect_image(image, count=count, name_classes=name_classes)
+            r_image.save('static/label/'+file_name)
 
 
     ## 下面是检测电脑自带摄像头的

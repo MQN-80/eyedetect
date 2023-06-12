@@ -19,16 +19,16 @@ if __name__ == "__main__":
     #   miou_mode为1代表仅仅获得预测结果。
     #   miou_mode为2代表仅仅计算miou。
     #---------------------------------------------------------------------------#
-    miou_mode       = 0
+    miou_mode       = 2
     #------------------------------#
     #   分类个数+1、如2+1
     #------------------------------#
-    num_classes     = 2
+    num_classes     = 5
     #--------------------------------------------#
     #   区分的种类，和json_to_dataset里面的一样
     #--------------------------------------------#
     # name_classes    = ["background","aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
-    name_classes    = ["background","HE"]
+    name_classes    = ["background","EX", "HE", "MA", "SE"]
     #-------------------------------------------------------#
     #   指向VOC数据集所在的文件夹
     #   默认指向根目录下的VOC数据集
@@ -36,9 +36,9 @@ if __name__ == "__main__":
     VOCdevkit_path  = 'NanKai'
 
     image_ids       = open(os.path.join(VOCdevkit_path, "save/trainval.txt"),'r').read().splitlines() 
-    gt_dir          = os.path.join(VOCdevkit_path, "train/label/HE_01/")
-    miou_out_path   = "miou_out"
-    pred_dir        = os.path.join(miou_out_path, 'HE_res')
+    gt_dir          = os.path.join(VOCdevkit_path, "train/label/num_label/")
+    miou_out_path   = "miou_train"
+    pred_dir        = os.path.join(miou_out_path, 'num_res')
 
     if miou_mode == 0 or miou_mode == 1:
         if not os.path.exists(pred_dir):

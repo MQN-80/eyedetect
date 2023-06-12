@@ -1,7 +1,4 @@
-# !/usr/bin/python3
-# -*- coding:utf-8 -*-
-# Author:WeiFeng Liu
-# @Time: 2021/12/9 下午6:41
+
 
 import cv2
 import numpy as np
@@ -52,9 +49,9 @@ def mergeData(ex_data,ha_data,se_data,ma_data,pic_name,save_path):
     se=np.array(Image.open(se_data+pic_name))
     ma=np.array(Image.open(ma_data+pic_name))
     ex=ex+ha*2+se*3+ma*4
+    ex[ex>4]=4
     ex=Image.fromarray(ex)
-    ex.save(save_path+pic_name)
-    
+    ex.save(save_path+pic_name)  
 def merge():
     ex_path="E:\\setup\\UNet_Demo\\eyedetect\\NanKai\\train\\label\\EX_01\\"
     ha_path="E:\\setup\\UNet_Demo\\eyedetect\\NanKai\\train\\label\\HE_01\\"
@@ -64,13 +61,35 @@ def merge():
     image_files=os.listdir(ex_path)
     for item in image_files:
         mergeData(ex_path,ha_path,se_path,ma_path,item,save_path)
-
-    
+def getPix():
+    save_path="E:\\setup\\UNet_Demo\\eyedetect\\NanKai\\train\\label\\num_label\\"
+    image_files=os.listdir(save_path)
+    res=[0,0,0,0,0]
+    for item in image_files:
+        img=Image.open(save_path+item)
+        img=np.array(img)
+        res[0]+=len(img[img==0])
+        res[1]+=len(img[img==1])
+        res[2]+=len(img[img==2])
+        res[3]+=len(img[img==3])
+        res[4]+=len(img[img==4])
+    print(res) 
+def getonePix():
+    save_path="E:\\setup\\UNet_Demo\\eyedetect\\NanKai\\test\\label\\MA\\"
+    image_files=os.listdir(save_path)
+    res=[0,0]
+    for item in image_files:
+        img=Image.open(save_path+item)
+        img=np.array(img)
+        res[0]+=len(img[img==0])
+        res[1]+=len(img[img==255])
+    print(res) 
 if __name__ == '__main__':
     root_path = r'E:/setup/UNet_Demo/eyedetect/NanKai/train/label/SE/'
     save_path = r'E:/setup/UNet_Demo/eyedetect/NanKai/train/label/SE_new'
     image_files = os.listdir(root_path)
-    merge()
+    getonePix()
+    #merge()
     #for item in image_files:
     #    tif_to_png(root_path+item,save_path)
     #gray()

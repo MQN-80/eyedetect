@@ -1,11 +1,11 @@
 # ignore map, miou, datasets
 map_out/
 miou_out/
+miou_train/
 VOCdevkit/
 datasets/
 Medical_Datasets/
 DDR dataset/
-lfw/
 logs/
 model_data/
 .temp_miou_out/
@@ -16,7 +16,7 @@ model_data/
 __pycache__/
 *.py[cod]
 *$py.class
-
+*.pth
 # C extensions
 *.so
 
